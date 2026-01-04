@@ -118,21 +118,23 @@ int Angle_Calc(Vec2 src,Vec2 dst,Vec2 g,float s,float* a1,float* a2){
     //const int found2 = Angle_Find_Newton(src,dst,g,s,a2,Angle_FuncT2,Angle_FuncPrimeT2);
     //return found1 + found2;
 
-    float dx = dst.x - src.x;
-    float dy = dst.y - src.y;
+    float fa = Vec2_AngleOf(g) - F32_PI05;
 
-    float a = 0.5f * g.y * (dx / s) * (dx / s);
-    float b = dx;
-    float c = 0.5f * g.y * (dx / s) * (dx / s) - dy;
+    Vec2 nrd = Vec2_Sub(dst,src);
+    Vec2 d = Vec2_Mulf(Vec2_OfAngle(Vec2_AngleOf(nrd) - fa),Vec2_Mag(nrd));
+    
+    float a = 0.5f * Vec2_Mag(g) * (d.x / s) * (d.x / s);
+    float b = d.x;
+    float c = 0.5f * Vec2_Mag(g) * (d.x / s) * (d.x / s) - d.y;
 
-    float d = b * b - 4.0f * a * c;
+    float dis = b * b - 4.0f * a * c;
 
-    float dir = dx >= 0.0f ? 0.0f : F32_PI;
-    *a1 = dir + atanf((-b + sqrtf(d)) / (2.0f * a));
-    *a2 = dir + atanf((-b - sqrtf(d)) / (2.0f * a));
+    float dir = (d.x >= 0.0f ? 0.0f : F32_PI) + fa;
+    *a1 = dir + atanf((-b + sqrtf(dis)) / (2.0f * a));
+    *a2 = dir + atanf((-b - sqrtf(dis)) / (2.0f * a));
 
-    if(d < 0.0f)    return 0;
-    if(d == 0.0f)   return 1;
+    if(dis < 0.0f)    return 0;
+    if(dis == 0.0f)   return 1;
     return 2;
 }
 
@@ -151,7 +153,7 @@ void Setup(AlxWindow* w){
     angle = -F32_PI025;
     strength = 1.0f;
     position = (Vec2){ 0.0f,0.0f };
-    force = (Vec2){ 0.0f,1.0f };
+    force = (Vec2){ 1.0f,1.0f };
     target = (Vec2){ 20.0f,1.0f };
 
     focused = NULL;
