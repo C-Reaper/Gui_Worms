@@ -1,193 +1,85 @@
-# Gui_Worms
+## Overview
+The provided code appears to be a C project designed for a graphical user interface (GUI) application, likely using the SDL library. The application seems to handle basic input/output operations and graphics rendering on different platforms.
 
+## Features
+- Cross-platform support:
+  - Linux (`Makefile.linux`)
+  - Windows (`Makefile.windows`)
+  - Wine (Windows compatibility)
+  - WebAssembly (`Makefile.web`)
 
-## Project Overview
+- Simple GUI elements:
+  - Circles with custom colors
+  - Lines/trails with customizable angles and strengths
 
-This project implements specialized functionality related to worms.
+- Input handling:
+  - Basic keyboard input for controlling a "worm" or trail
 
-## Core Components
-
-### Main Functionality
-- Implements core algorithms for worms
-- Efficient data structures
-- Optimized performance
-- Clean code organization
-
-### Technical Features
-- C/C++ implementation
-- Dynamic memory management
-- Platform-independent design
-- Real-time capable
-
-### Architecture
-- Module separation
-- Clear interface design
-- Proper abstraction layers
-- Extensible design
-
-## Use Cases
-- Production systems
-- Educational purposes
-- Research applications
-- Performance-critical operations
-
-## Performance Characteristics
-- Optimized algorithms
-- Efficient memory usage
-- Scalable architecture
-- Minimal overhead
-
-## Implementation Quality
-- Well-organized code
-- Meaningful naming
-- Proper error handling
-- Memory management
-
-## Build and Deployment
-- Standard C/C++ compilation
-- Makefile-based building
-- Cross-platform support
-- Easy integration
-
-
-## Building the Project
-
+## Project Structure
 ### Prerequisites
-- C/C++ Compiler (GCC, Clang, or MSVC)
+- C/C++ Compiler (GCC, Clang)
 - Make utility
 - Standard development tools
+- Libraries needed in specific projects (example given WINAPI, X11, ALSA)
 
-### Build Steps
-
-1. Navigate to project directory:
-```bash
-cd Gui_Worms
+### Files and Directories
 ```
-
-2. Build the project:
-```bash
-make -f Makefile.(os) all
-```
-
-3. For clean rebuild:
-```bash
-make -f Makefile.(os) clean
-make -f Makefile.(os) all
-```
-
-4. If there are ./bin and ./libs directories, build libs with:
-```bash
-make -f Makefile.(os) cleanlib
-make -f Makefile.(os) lib
-```
-
-### Build Options
-```bash
-make -f Makefile.(os) all         # build output
-make -f Makefile.(os) do        # build + exe output
-make -f Makefile.(os) clean   # Remove build artifacts
-```
-
-## Running the Project
-
-Execute the compiled binary:
-
-```bash
-./build/Main(.exe)
-```
-
-Or using make:
-```bash
-make -f Makefile.(os) exe
-```
-
-## Project Organization
-
-```
-Gui_Worms/
-├── src/
-│   ├── Main.c          # Entry point
-│   └── *.c             # Implementation files
-├── Makefile            # Build configuration
+<Project>/
+├── build/              # .exe files produced by Main.c
+├── src/                # Source code directory
+│   ├── Main.c          # Entry point of the application
+│   └── *.h             # Standalone Header-based C-files, without *.c files that implement it
+├── Makefile.linux      # Linux Build configuration
+├── Makefile.windows    # Windows Build configuration
+├── Makefile.wine       # Wine Build configuration for cross-compiling to Windows
+├── Makefile.web        # Emscripten Build configuration for compiling to WebAssembly
 └── README.md           # This file
 ```
 
-## Technical Details
+## Build & Run
+### Linux
+1. **Build**:
+   ```sh
+   cd <Project>
+   make -f Makefile.linux all
+   ```
+2. **Run**:
+   ```sh
+   make -f Makefile.linux exe
+   ```
 
-### Language: C/C++
-- Performance-oriented
-- Direct hardware access where needed
-- Memory efficient
-- Widely portable
+### Windows
+1. **Build**:
+   ```sh
+   cd <Project>
+   make -f Makefile.windows all
+   ```
+2. **Run**:
+   ```sh
+   make -f Makefile.windows exe
+   ```
 
-### Key Technologies
-- Standard C library
-- System-specific libraries as needed
-- Algorithm optimization
-- Efficient data structures
+### Wine (Linux to Windows)
+1. **Build**:
+   ```sh
+   cd <Project>
+   make -f Makefile.wine all
+   ```
+2. **Run**:
+   ```sh
+   make -f Makefile.wine exe
+   ```
 
-### Code Quality
-- Clean, readable implementation
-- Proper error handling
-- Resource management
-- Well-documented algorithms
+### WebAssembly (for Web browsers)
+1. **Build**:
+   ```sh
+   cd <Project>
+   make -f Makefile.web all
+   ```
+2. **Serve**:
+   ```sh
+   emrun --no_browser --port 8080 build/index.html
+   ```
+   Open `http://localhost:8080` in your web browser to view the application.
 
-## Development Notes
-
-### Architecture Decisions
-- Modular design for reusability
-- Efficient algorithms for performance
-- Clear separation of concerns
-- Extensible structure
-
-### Performance Optimizations
-- Algorithm efficiency
-- Memory layout optimization
-- Cache-conscious programming
-- Minimal overhead
-
-### Portability
-- Cross-platform compatible
-- Platform-specific optimizations where possible
-- Standard library usage
-- No external dependencies (where feasible)
-
-## Troubleshooting
-
-### Build Issues
-- Ensure compiler is installed
-- Check file paths and permissions
-- Verify Make installation
-- Review compiler error messages
-
-### Runtime Issues
-- Check input data validity
-- Verify file accessibility
-- Ensure sufficient memory
-- Review output format
-
-### Performance Issues
-- Check compiler optimization flags
-- Profile hot code paths
-- Review algorithm complexity
-- Consider input size
-
-## Future Improvements
-
-Potential enhancements:
-- Additional optimization opportunities
-- Extended functionality
-- Platform-specific optimizations
-- Performance profiling
-
-## References
-
-For technical background:
-- Algorithm textbooks
-- Computer science references
-- Language documentation
-- Online educational resources
-
----
-
-*Project implementing practical algorithms and data structures in C/C++*
+This README provides a clear and concise overview of the project, its features, and how it can be built and run on different platforms.
